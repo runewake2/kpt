@@ -33,7 +33,7 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: kpt
-          path: go/bin/kpt
+          path: $(GOBIN)/kpt
           if-no-files-found: error
   test:
     runs-on: ${{ matrix.os }}
@@ -49,7 +49,7 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: kpt
-          path: go/bin/kpt
+          path: $(GOBIN)/kpt
       - run: |
           GOPATH=$(go env GOPATH) go get github.com/monopole/mdrip
           GOPATH=$(go env GOPATH) go get sigs.k8s.io/kind@v0.8.1
