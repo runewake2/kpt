@@ -14,7 +14,9 @@
 
 name: VerifyGuides
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - multi-arch-tests
   pull_request:
     branches:
       - master
