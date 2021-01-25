@@ -21,6 +21,7 @@ on:
   push:
     branches:
       - master
+      - githubactions-caching
   pull_request:
     branches:
       - master
