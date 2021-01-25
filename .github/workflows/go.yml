@@ -14,6 +14,8 @@
 
 name: Go
 on:
+  # Manually run workflow
+  workflow_dispatch:
   # Trigger the workflow on push or pull request,
   # but only for the master branch
   push:
@@ -35,6 +37,13 @@ jobs:
       id: go
     - name: Check out code into the Go module directory
       uses: actions/checkout@v1
+    # Cache go module dependencies between runs
+    - uses: actions/cache@v2
+      with:
+        path: ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
     - name: Build, Test, Lint
       run: |
         git config --global user.email you@example.com
