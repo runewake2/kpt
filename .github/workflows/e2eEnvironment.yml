@@ -1,4 +1,4 @@
-name: "Create cluster using KinD"
+name: "Kpt Live - KinD Tests"
 on:
   - workflow_dispatch
 
