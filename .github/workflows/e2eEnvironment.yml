@@ -5,7 +5,6 @@ on:
     branches:
       - master
       - next
-      - e2eTesting
     paths-ignore: # do not run these tests when only changes to documentation are detected
       - 'docs/**'
       - 'site/**'
