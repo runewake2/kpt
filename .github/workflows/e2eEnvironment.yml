@@ -1,24 +1,28 @@
 name: "Kpt Live - KinD Tests"
+
 on:
-  workflow_dispatch:
-    inputs:
-      k8s_version:
-        description: 'Kubernetes Version to Test'
-        required: true
-        default: '1.18'
   push:
     branches:
       - master
       - next
       - e2eTesting
+    paths-ignore: # do not run these tests when only changes to documentation are detected
+      - 'docs/**'
+      - 'site/**'
   pull_request:
     branches:
       - master
       - next
+    paths-ignore:
+      - 'docs/**'
+      - 'site/**'
 
 jobs:
   kind:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [ 1.16, 1.17 ]
     steps:
       - uses: actions/checkout@master
       # Pinned to Commit to ensure action is consistent: https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions#using-third-party-actions
@@ -29,5 +33,7 @@ jobs:
           version: "v0.9.0"
           skipClusterCreation: true
       - name: Run Tests
+        env:
+          K8S_VERSION: ${{ matrix.version }}
         run: |
-          ./e2e/live/end-to-end-test.sh -k ${{ github.event.inputs.k8s_version }}
+          ./e2e/live/end-to-end-test.sh -k $K8S_VERSION
