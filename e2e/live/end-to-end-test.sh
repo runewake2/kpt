@@ -69,7 +69,7 @@ KIND_1_16_VERSION=1.16.15
 KIND_1_15_VERSION=1.15.12
 KIND_1_14_VERSION=1.14.10
 KIND_1_13_VERSION=1.13.12
-DEFAULT_K8S_VERSION=${KIND_1_16_VERSION}
+DEFAULT_K8S_VERSION=${KIND_1_17_VERSION}
 
 # Change from empty string to build the kpt binary from the downloaded
 # repositories at HEAD, including dependencies cli-utils and kustomize.
