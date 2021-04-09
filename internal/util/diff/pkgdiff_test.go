@@ -99,6 +99,38 @@ func TestPkgDiff(t *testing.T) {
 	}
 }
 
+func TestPackageLists(t *testing.T) {
+	resource := `
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: myspace
+  name: mysql-deployment
+spec:
+  replicas: 3
+  foo: bar
+  template:
+  spec:
+    containers:
+    - name: mysql
+      image: mysql:1.7.9
+`
+
+	base := pkgbuilder.NewRootPkg().
+		WithKptfile().
+		WithRawResource("pod.yaml", resource)
+
+	upstream := pkgbuilder.NewRootPkg().
+		WithKptfile().
+		WithRawResource("pod.yaml", resource)
+
+	local := pkgbuilder.NewRootPkg().
+		WithKptfile().
+		WithRawResource("pod.yaml", resource)
+
+	diff.Diff(base, upstream, local)
+}
+
 func toStringSet(files ...string) sets.String {
 	s := sets.String{}
 	for _, f := range files {
