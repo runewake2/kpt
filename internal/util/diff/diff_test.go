@@ -222,6 +222,9 @@ func TestCommand_Diff(t *testing.T) {
 				}
 			}
 			if !g.Init() {
+				// Could not initialize the repo's for testing or another error
+				// has occurred.
+				t.Fail()
 				return
 			}
 
@@ -241,6 +244,13 @@ func TestCommand_Diff(t *testing.T) {
 		})
 	}
 }
+
+// Test case: no packages supplied to diff
+// Test case: one package supplied to diff
+// Test case: package supplied to diff directory does not exist
+// Test case: Package supplied to diff is not a kpt package/empty dir
+// Test case: Upstream package does not exist
+// Test case: 3-way diff not supported with diffutils
 
 // filterDiffMetadata removes information from the diff output that is test-run
 // specific for ex. removing directory name being used.
